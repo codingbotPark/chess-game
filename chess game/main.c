@@ -1,3 +1,5 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include "grapics.h"
 #include "chess.h"
 
@@ -29,6 +31,24 @@ int main()
 			drawCore(i, j);
 		}
 	}
+
+	//FILE* fp = fopen("pon.txt", "r");
+	//for (int i = 0; i < 14; i++)
+	//{
+	//	for (int j = 0; j < 14; j++)
+	//	{
+	//		fscanf(fp, "%d", &pon_asset[i][j]);
+	//		//fp는 어떤파일에 어떤 형식으로, 어떤 형식으로 받을지
+	//	}
+	//}
+	//fclose(fp);
+	
+	loadAsset("pon.txt", pon_asset);
+
+
+
+
+	drawCharacter(2, 2, YELLOW, pon_asset);
 
 	drawBorder(1, 1, BLUE);
 

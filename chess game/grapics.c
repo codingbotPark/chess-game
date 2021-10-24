@@ -52,3 +52,24 @@ void drawBorder(int x, int y, char color)
 	printf("                            ");
 }
 
+void drawCharacter(int x, int y, char color, int(*input)[14]) 
+{
+	x = RETX(x);
+	y = RETY(y);
+	//컴퓨터의 2차원 배열과
+	//우리가 생각하는 체스판의
+	//인덱스가 다르기 때문에
+	//RETX, RETY를 사용해 해석
+	setcolor(color);
+	for (int i = 0; i < 14; i++)
+	{
+		for (int j = 0; j < 14; j++)
+		{
+			if (input[i][j])
+			{
+				gotoxy(x + j * 2, y + i);
+				printf(DOT);
+			}
+		}
+	}
+}

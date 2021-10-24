@@ -149,6 +149,14 @@
     <ClInclude Include="chess.h" />
     <ClInclude Include="grapics.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="bisop.txt" />
+    <Text Include="king.txt" />
+    <Text Include="knight.txt" />
+    <Text Include="pon.txt" />
+    <Text Include="queen.txt" />
+    <Text Include="rook.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
