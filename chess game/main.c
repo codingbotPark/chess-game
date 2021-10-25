@@ -1,6 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 
-#include "grapics.h"
+//#include "grapics.h"
 #include "chess.h"
 
 int main()
@@ -32,23 +32,95 @@ int main()
 		}
 	}
 
-	//FILE* fp = fopen("pon.txt", "r");
-	//for (int i = 0; i < 14; i++)
-	//{
-	//	for (int j = 0; j < 14; j++)
-	//	{
-	//		fscanf(fp, "%d", &pon_asset[i][j]);
-	//		//fp는 어떤파일에 어떤 형식으로, 어떤 형식으로 받을지
-	//	}
-	//}
-	//fclose(fp);
+	//말들을 로딩하는 코드
+	//pon
+	FILE* fp = fopen("pon.txt", "r");
+	for (int i = 0; i < 14; i++)
+	{
+		for (int j = 0; j < 14; j++)
+		{
+			fscanf(fp, "%d", &pon_asset[i][j]);
+			//fp는 어떤파일에 어떤 형식으로, 어떤 형식으로 받을지
+		}
+	}
+	fclose(fp);
 	
-	loadAsset("pon.txt", pon_asset);
+	//bisop
+	fp = fopen("bisop.txt", "r");
+	for (int i = 0; i < 14; i++)
+	{
+		for (int j = 0; j < 14; j++)
+		{
+			fscanf(fp, "%d", &bisop_asset[i][j]);
+			//fp는 어떤파일에 어떤 형식으로, 어떤 형식으로 받을지
+		}
+	}
+	fclose(fp);
+
+	//king
+	fp = fopen("king.txt", "r");
+	for (int i = 0; i < 14; i++)
+	{
+		for (int j = 0; j < 14; j++)
+		{
+			fscanf(fp, "%d", &king_asset[i][j]);
+			//fp는 어떤파일에 어떤 형식으로, 어떤 형식으로 받을지
+		}
+	}
+	fclose(fp);
+
+	//knight
+	fp = fopen("knight.txt", "r");
+	for (int i = 0; i < 14; i++)
+	{
+		for (int j = 0; j < 14; j++)
+		{
+			fscanf(fp, "%d", &knight_asset[i][j]);
+			//fp는 어떤파일에 어떤 형식으로, 어떤 형식으로 받을지
+		}
+	}
+	fclose(fp);
+
+	//queen
+	fp = fopen("queen.txt", "r");
+	for (int i = 0; i < 14; i++)
+	{
+		for (int j = 0; j < 14; j++)
+		{
+			fscanf(fp, "%d", &queen_asset[i][j]);
+			//fp는 어떤파일에 어떤 형식으로, 어떤 형식으로 받을지
+		}
+	}
+	fclose(fp);
+
+	//rook
+	fp = fopen("rook.txt", "r");
+	for (int i = 0; i < 14; i++)
+	{
+		for (int j = 0; j < 14; j++)
+		{
+			fscanf(fp, "%d", &rook_asset[i][j]);
+			//fp는 어떤파일에 어떤 형식으로, 어떤 형식으로 받을지
+		}
+	}
+	fclose(fp);
+	
+	//loadAsset("pon.txt", pon_asset);
 
 
+	initChessgrid();
 
 
-	drawCharacter(2, 2, YELLOW, pon_asset);
+	//drawCharacter(2, 2, YELLOW, pon_asset);
+
+	for (int i = 1; i < 9; i++)
+	{
+		for (int j = 1; j < 9; j++)
+		{
+			drawCharacter(j, i, YELLOW, retCharPtr(chessGrid[j][i]));
+		}
+	}
+
 
 	drawBorder(1, 1, BLUE);
 
