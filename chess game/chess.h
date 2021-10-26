@@ -19,7 +19,17 @@ void loadAsset(const char, int(*)[14]);
 char chessGrid[10][10];
 //원래는 8 * 8 이지만 인덱스 값을 넣기 편하게 10,10으로 한다
 
+//말이 이동할 수 있는 곳을 계산
+char canGoGrid[10][10];
+
+//폰의 x,y 좌표를 받아서 갈 수 있는지 계산
+void isPonCanGo(int x, int y);
+
+
 void initChessgrid();
+
+//15이상이면 상대 꺼(비트시프트 4)
+#define BOOLCOLOR(x) (x > 15)
 
 //grid에 어떤 체스말이 들어가는지
 #define END -1
@@ -30,6 +40,12 @@ void initChessgrid();
 #define ROO 4
 #define QUE 5
 #define KIN 6
+//이 define된 수를 활용해 비트 시프트 4를 해서
+//상대말과 우리말을 구분
 
 //asset의 이름을 받아서 주소를 반환하는 함수
 int** retCharPtr(int input);
+
+
+#define charColor(input) (input > 15 ? GREEN : YELLOW)
+

@@ -117,7 +117,10 @@ int main()
 	{
 		for (int j = 1; j < 9; j++)
 		{
-			drawCharacter(j, i, YELLOW, retCharPtr(chessGrid[j][i]));
+			if (chessGrid[j][i] != VOI)
+			{
+				drawCharacter(j, i,charColor(chessGrid[j][i]), retCharPtr(chessGrid[j][i]));
+			}
 		}
 	}
 

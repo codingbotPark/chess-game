@@ -78,3 +78,27 @@ int** retCharPtr(int input)
 		return pon_asset;
 	}
 }
+
+
+void isPonCanGo(int x, int y)
+{
+	bool colorBlack = BOOLCOLOR(chessGrid[x][y]);
+	if (colorBlack)
+	{
+		//상대 말이 대각선 한 칸에 있을 때 + 대각선 한 칸이 끝이 아닐 때 = 폰이 대각선으로 갈 수 있다
+		if (!(BOOLCOLOR(chessGrid[x - 1][y - 1])) && chessGrid[x - 1][y - 1] != VOI && chessGrid[x - 1][y - 1] != END)
+			canGoGrid[x - 1][y - 1] = 1;
+		if (!(BOOLCOLOR(chessGrid[x + 1][y - 1])) && chessGrid[x + 1][y - 1] != VOI && chessGrid[x + 1][y - 1] != END)
+			canGoGrid[x + 1][y - 1] = 1;
+		//검정색말은 y--
+		//일반적으로 한 칸 움직일 때
+		if (chessGrid[x][y - 1] == VOI)
+		{
+			canGoGrid[x][y - 1] = 1;
+			if (y == 7 && chessGrid[x][y - 2] == VOI)
+			{
+				canGoGrid[x][y - 2] = 1;
+			}
+		}
+	}
+}
