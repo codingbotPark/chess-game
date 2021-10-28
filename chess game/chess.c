@@ -49,6 +49,8 @@ void initChessgrid()
 
 	chessGrid[5][1] = KIN;
 	chessGrid[5][8] = KIN << 4;
+
+
 }
 
 
@@ -98,6 +100,75 @@ void isPonCanGo(int x, int y)
 			if (y == 7 && chessGrid[x][y - 2] == VOI)
 			{
 				canGoGrid[x][y - 2] = 1;
+			}
+		}
+	}
+	else
+	{
+		if (BOOLCOLOR(chessGrid[x - 1][y + 1]) && chessGrid[x - 1][y + 1] != VOI && chessGrid[x - 1][y + 1] != END)
+			canGoGrid[x - 1][y + 1] = 1;
+		if (BOOLCOLOR(chessGrid[x + 1][y + 1]) && chessGrid[x + 1][y + 1] != VOI && chessGrid[x + 1][y + 1] != END)
+			canGoGrid[x + 1][y + 1] = 1;
+
+		if (chessGrid[x][y + 1] == VOI)
+		{
+			canGoGrid[x][y + 1] = 1;
+			if (y == 2 && chessGrid[x][y + 2] == VOI)
+			{
+				canGoGrid[x][y + 2] = 1;
+			}
+		}
+	}
+}
+
+
+
+
+void click()
+{
+	//말을 안 들었을 때
+	if (clickflag == 0)
+	{
+		//현제 x, y의 위치를 이동
+		whereclicked_x = myCursorX;
+		whereclicked_y = myCursorY;
+		//말을 들었음
+		clickflag = 1;
+		isCanGo(whereclicked_x, whereclicked_y);
+	}
+	else
+	{
+		//말을 들었을 때
+		clickflag = 0;
+
+	}
+}
+
+void isCanGo(x, y) 
+{
+	for (int i = 0; i < 10; i++)
+	{
+		for (int j = 0; j < 10; j++)
+		{
+			canGoGrid[i][j] = 0;
+		}
+	}
+	int whatChar = chessGrid[x][y];
+	switch (whatChar)
+	{
+	//체스판의 x,y에 있는 말을 비교,
+	//갈 수 있는 곳을 계산한 함수 실행
+	case PON:
+	case PON << 4: isPonCanGo(x, y); break;
+	
+	}
+	for (int i = 0; i < 10; i++)
+	{
+		for (int j = 0; j < 10; j++)
+		{
+			if (canGoGrid[i][j] == 1)
+			{
+				drawBorder(i, j, BLUE);
 			}
 		}
 	}

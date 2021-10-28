@@ -49,3 +49,12 @@ int** retCharPtr(int input);
 
 #define charColor(input) (input > 15 ? GREEN : YELLOW)
 
+void click();
+
+//말을 선택했는지 안 했는데
+char clickflag;
+
+int whereclicked_x;
+int whereclicked_y;
+
+void isCanGo(x, y);

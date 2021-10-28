@@ -123,9 +123,11 @@ int main()
 			}
 		}
 	}
+	
+	//선택했는지 안했는지 구별하는 변수 초기화
+	clickflag = 0;
 
-
-	drawBorder(1, 1, BLUE);
+	drawBorder(myCursorX, myCursorY, BLUE);
 
 	while (1)
 	{
@@ -156,10 +158,11 @@ int main()
 		}
 		if (GetAsyncKeyState(VK_SPACE))
 		{
-
+			click();
 		}
 		Sleep(100);
 	}
 
+	
 
 }
