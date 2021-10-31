@@ -11,6 +11,7 @@ int king_asset[14][14];
 int knight_asset[14][14];
 int queen_asset[14][14];
 int rook_asset[14][14];
+int dot_asset[14][14];
 
 void loadAsset(const char, int(*)[14]);
 //케릭터 하나하나의 이름, 저장위치를 입력받아 출력

@@ -50,7 +50,7 @@ void initChessgrid()
 	chessGrid[5][1] = KIN;
 	chessGrid[5][8] = KIN << 4;
 
-
+	chessGrid[3][3] = PON << 4;
 }
 
 
@@ -140,6 +140,26 @@ void click()
 	{
 		//말을 들었을 때
 		clickflag = 0;
+		for (int i = 1; i < 9; i++)
+		{
+			for (int j = 1; j < 9; j++)
+			{
+				if (canGoGrid[i][j] == 1)
+				{
+					//1이 된 곳은 isCanGo~ 에 의해 그려진 점이 있는 곳이고
+					//다시한 번 drawCore를 통해 예전 점이 그려진 곳을 원래대로 바꾼다
+					drawCore(i, j);
+
+					//dot를 출력하고 상대말이 도트에 의해 사라지기 때문에 출력
+					if (chessGrid[i][j] != VOI)
+					{
+						drawCharacter(i, j, charColor(chessGrid[i][j]), retCharPtr(chessGrid[i][j]));
+					}		
+				}
+			}
+		}
+		//나의 커서도 drawCore에 의해 없어지는 것을 다시 그림
+		drawBorder(myCursorX,myCursorY,BLUE);
 
 	}
 }
@@ -168,7 +188,7 @@ void isCanGo(x, y)
 		{
 			if (canGoGrid[i][j] == 1)
 			{
-				drawBorder(i, j, BLUE);
+				drawCharacter(i, j, PURPLE,dot_asset);
 			}
 		}
 	}

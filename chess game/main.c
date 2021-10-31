@@ -106,7 +106,17 @@ int main()
 	fclose(fp);
 	
 	//loadAsset("pon.txt", pon_asset);
-
+	
+	//dot의 txt파일을 저장
+	fp = fopen("dot.txt", "r");
+	for (int i = 0; i < 14; i++)
+	{
+		for (int j = 0; j < 14; j++)
+		{
+			fscanf(fp, "%d", &dot_asset[i][j]);
+		}
+	}
+	fclose(fp);
 
 	initChessgrid();
 

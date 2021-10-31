@@ -151,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="bisop.txt" />
+    <Text Include="dot.txt" />
     <Text Include="king.txt" />
     <Text Include="knight.txt" />
     <Text Include="pon.txt" />
