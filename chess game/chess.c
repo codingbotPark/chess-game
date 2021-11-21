@@ -121,6 +121,55 @@ void isPonCanGo(int x, int y)
 	}
 }
 
+void isBisCanGo(int x, int y)
+{
+	int i, j;
+	bool colorBlack = BOOLCOLOR(chessGrid[x][y]);
+	if (colorBlack)//초록
+	{
+		i = 0;
+		j = 0;
+		//++하는 while문
+		while (1)
+		{
+			i++;
+			j++;
+			//if문에서 비었는지, 상대인지, 나갔는지
+			if (!(BOOLCOLOR(chessGrid[x + i -1][y + j-1])) && chessGrid[x+i][y+i] != VOI && chessGrid[x - 1][y - 1] != END)
+			{
+				canGoGrid[x + i][y + j] = 1;
+			}
+		}
+		i = 0;
+		j = 0;
+		while(1)
+		{
+			i++;
+
+		}
+
+
+
+
+
+
+		if (!(BOOLCOLOR(chessGrid[x + 1][y - 1])) && chessGrid[x + 1][y - 1] != VOI && chessGrid[x + 1][y - 1] != END)
+			canGoGrid[x + 1][y - 1] = 1;
+		if (chessGrid[x][y - 1] == VOI)
+		{
+			canGoGrid[x][y - 1] = 1;
+			if (y == 7 && chessGrid[x][y - 2] == VOI)
+			{
+				canGoGrid[x][y - 2] = 1;
+			}
+		}
+	}
+	else
+	{
+
+	}
+}
+
 
 
 
@@ -180,6 +229,9 @@ void isCanGo(x, y)
 	//갈 수 있는 곳을 계산한 함수 실행
 	case PON:
 	case PON << 4: isPonCanGo(x, y); break;
+
+	case BIS:
+	case BIS << 4: isBisCanGo(x, y); break;
 	
 	}
 	for (int i = 0; i < 10; i++)

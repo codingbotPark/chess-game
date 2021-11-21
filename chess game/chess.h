@@ -25,6 +25,8 @@ char canGoGrid[10][10];
 
 //폰의 x,y 좌표를 받아서 갈 수 있는지 계산
 void isPonCanGo(int x, int y);
+//비솝의 x,y 좌표를 받아서 갈 수 있는지 계산
+void isBisCanGo(int x, int y);
 
 
 void initChessgrid();
