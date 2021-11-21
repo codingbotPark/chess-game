@@ -50,7 +50,11 @@ void initChessgrid()
 	chessGrid[5][1] = KIN;
 	chessGrid[5][8] = KIN << 4;
 
+	//test
 	chessGrid[3][3] = PON << 4;
+	chessGrid[4][4] = BIS << 4;
+	chessGrid[5][5] = ROO << 4;
+	chessGrid[6][6] = QUE << 4;
 }
 
 
@@ -121,56 +125,155 @@ void isPonCanGo(int x, int y)
 	}
 }
 
-void isBisCanGo(int x, int y)
+
+void isBisLoop(int x, int y, char flag, bool color)
 {
-	int i, j;
-	bool colorBlack = BOOLCOLOR(chessGrid[x][y]);
-	if (colorBlack)//초록
+	// flag = 방향 , 0 = 좌상, 1 = 우상, 2 = 좌하, 3 = 우하
+
+	// 비었을 때, 상대일 때, 끝일 때, 아군일 때
+	if (flag == 0)
 	{
-		i = 0;
-		j = 0;
-		//++하는 while문
-		while (1)
-		{
-			i++;
-			j++;
-			//if문에서 비었는지, 상대인지, 나갔는지
-			if (!(BOOLCOLOR(chessGrid[x + i -1][y + j-1])) && chessGrid[x+i][y+i] != VOI && chessGrid[x - 1][y - 1] != END)
-			{
-				canGoGrid[x + i][y + j] = 1;
-			}
-		}
-		i = 0;
-		j = 0;
-		while(1)
-		{
-			i++;
+		x--;
+		y++;
+		
+	}
+	else if (flag == 1)
+	{
+		x++;
+		y++;
+	}
+	else if (flag == 2)
+	{
+		x--;
+		y--;
 
-		}
-
-
-
-
-
-
-		if (!(BOOLCOLOR(chessGrid[x + 1][y - 1])) && chessGrid[x + 1][y - 1] != VOI && chessGrid[x + 1][y - 1] != END)
-			canGoGrid[x + 1][y - 1] = 1;
-		if (chessGrid[x][y - 1] == VOI)
-		{
-			canGoGrid[x][y - 1] = 1;
-			if (y == 7 && chessGrid[x][y - 2] == VOI)
-			{
-				canGoGrid[x][y - 2] = 1;
-			}
-		}
 	}
 	else
 	{
+		x++;
+		y--;
+	}
 
+	//비었을 때
+	if (chessGrid[x][y] == VOI)
+	{
+		canGoGrid[x][y] = 1;
+		isBisLoop(x, y, flag, color);
+	}
+	//끝일 때, 아군일 때
+	else if (chessGrid[x][y] == END || BOOLCOLOR(chessGrid[x][y]) == color)
+	{
+
+	}
+	// 상대일 때
+	else if (!(BOOLCOLOR(chessGrid[x][y]) == color))
+	{
+		canGoGrid[x][y] = 1;
 	}
 }
 
+void isBisCanGo(int x, int y)
+{
+	for (int i = 0; i < 4; i++)
+	{
+		isBisLoop(x, y, i, BOOLCOLOR(chessGrid[x][y]));
+	}
 
+	//int i, j;
+	//bool colorBlack = BOOLCOLOR(chessGrid[x][y]);
+	//if (colorBlack)//초록
+	//{
+	//	i = 0;
+	//	j = 0;
+	//	//++하는 while문
+	//	while (1)
+	//	{
+	//		i++;
+	//		j++;
+	//		//if문에서 비었는지, 상대인지, 나갔는지
+	//		if (!(BOOLCOLOR(chessGrid[x + i -1][y + j-1])) && chessGrid[x+i][y+j] != VOI && chessGrid[x - 1][y - 1] != END)
+	//		{
+	//			canGoGrid[x + i][y + j] = 1;
+	//		}
+	//	}
+	//	i = 0;
+	//	j = 0;
+	//	while(1)
+	//	{
+	//		i++;
+	//	}
+	//	if (!(BOOLCOLOR(chessGrid[x + 1][y - 1])) && chessGrid[x + 1][y - 1] != VOI && chessGrid[x + 1][y - 1] != END)
+	//		canGoGrid[x + 1][y - 1] = 1;
+	//	if (chessGrid[x][y - 1] == VOI)
+	//	{
+	//		canGoGrid[x][y - 1] = 1;
+	//		if (y == 7 && chessGrid[x][y - 2] == VOI)
+	//		{
+	//			canGoGrid[x][y - 2] = 1;
+	//		}
+	//	}
+	//}
+	//else
+	//{
+	//}
+}
+
+void isRooLoop(int x, int y, char flag, bool color)
+{
+	// flag 0 = 위, 1 = 오른쪽, 2 = 아래, 3 = 왼쪽
+	if (flag == 0)
+	{
+		y++;
+	}
+	else if (flag == 1)
+	{
+		x++;
+	}
+	else if (flag == 2)
+	{
+		y--;
+	}
+	else
+	{
+		x--;
+	}
+
+	// 비었을 때
+	if (chessGrid[x][y] == VOI)
+	{
+		canGoGrid[x][y] = 1;
+		isRooLoop(x, y, flag, color);
+	}
+	// 끝일 때, 
+	else if (chessGrid[x][y] == END || BOOLCOLOR(chessGrid[x][y]) == color)
+	{
+
+	}
+	// 상대일 때
+	else if (!BOOLCOLOR(chessGrid[x][y] == color))
+	{
+		canGoGrid[x][y] = 1;
+	}
+	
+}
+
+void isRooCanGo(int x, int y)
+{
+	for (int i = 0; i < 4; i++)
+	{
+		isRooLoop(x, y, i, BOOLCOLOR(chessGrid[x][y]));
+	}
+}
+
+//퀸
+void isQueCanGo(int x, int y)
+{
+	for (int i = 0; i < 4; i++)
+	{
+		isRooLoop(x, y, i, BOOLCOLOR(chessGrid[x][y]));
+		isBisLoop(x, y, i, BOOLCOLOR(chessGrid[x][y]));
+	}
+}
 
 
 void click()
@@ -233,6 +336,11 @@ void isCanGo(x, y)
 	case BIS:
 	case BIS << 4: isBisCanGo(x, y); break;
 	
+	case ROO:
+	case ROO << 4: isRooCanGo(x, y); break;
+
+	case QUE:
+	case QUE << 4: isQueCanGo(x, y); break;
 	}
 	for (int i = 0; i < 10; i++)
 	{
