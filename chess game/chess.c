@@ -55,6 +55,7 @@ void initChessgrid()
 	chessGrid[4][4] = BIS << 4;
 	chessGrid[5][5] = ROO << 4;
 	chessGrid[6][6] = QUE << 4;
+	chessGrid[3][4] = KIN << 4;
 }
 
 
@@ -275,6 +276,144 @@ void isQueCanGo(int x, int y)
 	}
 }
 
+void isKniLoop(int x, int y, char flag, bool color)
+{
+	// flag 0 = 위, 1 = 오른쪽, 2 = 아래, 3 = 왼쪽
+	// 0 ~ 3 = 2칸 전진 후 말 기준으로 오른 쪽, 4이상은 말 기준으로 왼쪽
+	if (flag == 0)
+	{
+		y += 2;
+		x += 1;
+	}
+	else if (flag == 1)
+	{
+		x += 2;
+		y -= 1;
+	}
+	else if (flag == 2)
+	{
+		y -= 2;
+		x -= 1;
+	}
+	else if (flag == 3)
+	{
+		x -= 2;
+		y += 1;
+	}
+	else if (flag == 4) 
+	{
+		y += 2;
+		x -= 1;
+	}
+	else if (flag == 5) 
+	{
+		x += 2;
+		y += 1;
+	}
+	else if (flag == 6) 
+	{
+		y -= 2;
+		x += 1;
+	}
+	else {
+		x -= 2;
+		y -= 1;
+	}
+
+	// 비었을 때
+	if (chessGrid[x][y] == VOI)
+	{
+		canGoGrid[x][y] = 1;
+	}
+	// 끝일 때, 
+	else if (chessGrid[x][y] == END || BOOLCOLOR(chessGrid[x][y]) == color)
+	{
+
+	}
+	// 상대일 때
+	else if (!BOOLCOLOR(chessGrid[x][y] == color))
+	{
+		canGoGrid[x][y] = 1;
+	}
+}
+
+////나이트
+void isKniCanGo(int x, int y)
+{
+	for (int i = 0; i < 8; i++)
+	{
+		isKniLoop(x, y, i, BOOLCOLOR(chessGrid[x][y]));
+	}
+}
+
+void isKinLoop(int x, int y, char flag, bool color)
+{
+	if (flag == 0)
+	{
+		y += 1;
+	}
+	else if (flag == 1)
+	{
+		x += 1;
+		y += 1;
+	}
+	else if (flag == 2)
+	{
+		x += 1;
+	}
+	else if (flag == 3)
+	{
+		x += 1;
+		y -= 1;
+	}
+	else if (flag == 4)
+	{
+		y -= 1;
+	}
+	else if (flag == 5)
+	{
+		y -= 1;
+		x -= 1;
+	}
+	else if (flag == 6)
+	{
+		x -= 1;
+	}
+	else if (flag == 7)
+	{
+		x -= 1;
+		y += 1;
+	}
+	else
+	{
+
+	}
+
+	// 비었을 때
+	if (chessGrid[x][y] == VOI)
+	{
+		canGoGrid[x][y] = 1;
+	}
+	// 끝일 때, 
+	else if (chessGrid[x][y] == END || BOOLCOLOR(chessGrid[x][y]) == color)
+	{
+
+	}
+	// 상대일 때
+	else if (!BOOLCOLOR(chessGrid[x][y] == color))
+	{
+		canGoGrid[x][y] = 1;
+	}
+
+}
+
+void isKinCanGo(int x, int y)
+{
+	for (int i = 0; i < 8; i++)
+	{
+		isKinLoop(x, y, i, BOOLCOLOR(chessGrid[x][y]));
+	}
+}
 
 void click()
 {
@@ -341,6 +480,12 @@ void isCanGo(x, y)
 
 	case QUE:
 	case QUE << 4: isQueCanGo(x, y); break;
+
+	case KNI:
+	case KNI << 4: isKniCanGo(x,y); break;
+
+	case KIN:
+	case KIN << 4: isKinCanGo(x, y); break;
 	}
 	for (int i = 0; i < 10; i++)
 	{
