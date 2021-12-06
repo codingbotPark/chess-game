@@ -379,14 +379,10 @@ void isKinLoop(int x, int y, char flag, bool color)
 	{
 		x -= 1;
 	}
-	else if (flag == 7)
+	else
 	{
 		x -= 1;
 		y += 1;
-	}
-	else
-	{
-
 	}
 
 	// 비었을 때
@@ -420,17 +416,36 @@ void click()
 	//말을 안 들었을 때
 	if (clickflag == 0)
 	{
-		//현제 x, y의 위치를 이동
-		whereclicked_x = myCursorX;
-		whereclicked_y = myCursorY;
-		//말을 들었음
-		clickflag = 1;
-		isCanGo(whereclicked_x, whereclicked_y);
+		// 기물이동
+		if (canGoGrid[myCursorX][myCursorY] == 1) // 확인
+		{
+			chessGrid[myCursorX][myCursorY] = chessGrid[whereclicked_x][whereclicked_y];
+			chessGrid[whereclicked_x][whereclicked_y] = VOI;
+			drawCore(myCursorX,myCursorY);
+			drawCore(whereclicked_x, whereclicked_y);
+			drawCharacter(myCursorX, myCursorY, BOOLCOLOR(chessGrid[myCursorX][myCursorY]), retCharPtr(chessGrid[myCursorX][myCursorY]));
+		}
+		else // 기물을 들어올린 상태가 아닐 때
+		{ 
+			//현제 x, y의 위치를 이동
+			whereclicked_x = myCursorX;
+			whereclicked_y = myCursorY;
+			//말을 들었음
+			clickflag = 1;
+			isCanGo(whereclicked_x, whereclicked_y);
+		}
+		
+		////현제 x, y의 위치를 이동
+		//whereclicked_x = myCursorX;
+		//whereclicked_y = myCursorY;
+		////말을 들었음
+		//clickflag = 1;
+		//isCanGo(whereclicked_x, whereclicked_y);
+
 	}
 	else
 	{
-		//말을 들었을 때
-		clickflag = 0;
+
 		for (int i = 1; i < 9; i++)
 		{
 			for (int j = 1; j < 9; j++)
@@ -440,7 +455,6 @@ void click()
 					//1이 된 곳은 isCanGo~ 에 의해 그려진 점이 있는 곳이고
 					//다시한 번 drawCore를 통해 예전 점이 그려진 곳을 원래대로 바꾼다
 					drawCore(i, j);
-
 					//dot를 출력하고 상대말이 도트에 의해 사라지기 때문에 출력
 					if (chessGrid[i][j] != VOI)
 					{
@@ -451,7 +465,8 @@ void click()
 		}
 		//나의 커서도 drawCore에 의해 없어지는 것을 다시 그림
 		drawBorder(myCursorX,myCursorY,BLUE);
-
+		//말을 들었을 때
+		clickflag = 0;
 	}
 }
 

@@ -136,7 +136,6 @@ int main()
 	
 	//선택했는지 안했는지 구별하는 변수 초기화
 	clickflag = 0;
-
 	drawBorder(myCursorX, myCursorY, BLUE);
 
 	while (1)
