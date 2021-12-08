@@ -129,7 +129,7 @@ int main()
 		{
 			if (chessGrid[j][i] != VOI)
 			{
-				drawCharacter(j, i,charColor(chessGrid[j][i]), retCharPtr(chessGrid[j][i]));
+				drawCharacter(j, i,CHARCOLOR(chessGrid[j][i]), retCharPtr(chessGrid[j][i]));
 			}
 		}
 	}
@@ -169,7 +169,7 @@ int main()
 		{
 			click();
 		}
-		Sleep(100);
+		Sleep(150);
 	}
 
 	

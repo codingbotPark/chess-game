@@ -3,6 +3,7 @@
 #include "chess.h"
 int myCursorX = 1;
 int myCursorY = 1;
+char clickflag = 0;
 
 void loadAsset(const char fileName, int(*input)[14])
 {
@@ -416,58 +417,69 @@ void click()
 	//말을 안 들었을 때
 	if (clickflag == 0)
 	{
+		//현제 x, y의 위치를 이동
+		whereclicked_x = myCursorX;
+		whereclicked_y = myCursorY;
+		//말을 들었음
+		clickflag = 1;
+		isCanGo(whereclicked_x, whereclicked_y);
+
+	}
+	else
+	{
 		// 기물이동
 		if (canGoGrid[myCursorX][myCursorY] == 1) // 확인
 		{
 			chessGrid[myCursorX][myCursorY] = chessGrid[whereclicked_x][whereclicked_y];
 			chessGrid[whereclicked_x][whereclicked_y] = VOI;
-			drawCore(myCursorX,myCursorY);
+			drawCore(myCursorX, myCursorY);
 			drawCore(whereclicked_x, whereclicked_y);
-			drawCharacter(myCursorX, myCursorY, BOOLCOLOR(chessGrid[myCursorX][myCursorY]), retCharPtr(chessGrid[myCursorX][myCursorY]));
-		}
-		else // 기물을 들어올린 상태가 아닐 때
-		{ 
-			//현제 x, y의 위치를 이동
-			whereclicked_x = myCursorX;
-			whereclicked_y = myCursorY;
-			//말을 들었음
-			clickflag = 1;
-			isCanGo(whereclicked_x, whereclicked_y);
-		}
-		
-		////현제 x, y의 위치를 이동
-		//whereclicked_x = myCursorX;
-		//whereclicked_y = myCursorY;
-		////말을 들었음
-		//clickflag = 1;
-		//isCanGo(whereclicked_x, whereclicked_y);
-
-	}
-	else
-	{
-
-		for (int i = 1; i < 9; i++)
-		{
-			for (int j = 1; j < 9; j++)
+			// 삭제한 기물을 복구
+			drawCharacter(myCursorX, myCursorY, CHARCOLOR(chessGrid[myCursorX][myCursorY]), retCharPtr(chessGrid[myCursorX][myCursorY]));
+			for (int i = 1; i <= 8; i++)
 			{
-				if (canGoGrid[i][j] == 1)
+				for (int j = 1; j <= 8; j++)
 				{
-					//1이 된 곳은 isCanGo~ 에 의해 그려진 점이 있는 곳이고
-					//다시한 번 drawCore를 통해 예전 점이 그려진 곳을 원래대로 바꾼다
-					drawCore(i, j);
-					//dot를 출력하고 상대말이 도트에 의해 사라지기 때문에 출력
-					if (chessGrid[i][j] != VOI)
+					if (canGoGrid[i][j] == 1)
 					{
-						drawCharacter(i, j, charColor(chessGrid[i][j]), retCharPtr(chessGrid[i][j]));
-					}		
+						drawCore(i, j);
+						// 이 if문을 하지 않는다면 dot가 찍힌 곳은 모두 삭제 or pon이 생성
+						if (chessGrid[i][j] != VOI)
+						{
+							// retCharPtr = 그 위치에 어떤 말이 있는지 판단 / 기본값 = pon
+							drawCharacter(i, j, CHARCOLOR(chessGrid[i][j]), retCharPtr(chessGrid[i][j]));
+						}
+					}
 				}
 			}
+			drawBorder(myCursorX, myCursorY, BLUE);
 		}
-		//나의 커서도 drawCore에 의해 없어지는 것을 다시 그림
-		drawBorder(myCursorX,myCursorY,BLUE);
-		//말을 들었을 때
+		else
+		{
+			for (int i = 1; i < 9; i++)
+			{
+				for (int j = 1; j < 9; j++)
+				{
+					if (canGoGrid[i][j] == 1)
+					{
+						//1이 된 곳은 isCanGo~ 에 의해 그려진 점이 있는 곳이고
+						//다시한 번 drawCore를 통해 예전 점이 그려진 곳을 원래대로 바꾼다
+						drawCore(i, j);
+						//dot를 출력하고 상대말이 도트에 의해 사라지기 때문에 출력  
+						if (chessGrid[i][j] != VOI)
+						{
+							drawCharacter(i, j, CHARCOLOR(chessGrid[i][j]), retCharPtr(chessGrid[i][j]));
+						}
+					}
+				}
+			}
+			//나의 커서도 drawCore에 의해 없어지는 것을 다시 그림
+			drawBorder(myCursorX, myCursorY, BLUE);
+			//말을 들었을 때
+		}
 		clickflag = 0;
 	}
+	//Sleep(100);
 }
 
 void isCanGo(x, y) 

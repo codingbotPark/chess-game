@@ -50,7 +50,7 @@ void initChessgrid();
 int** retCharPtr(int input);
 
 
-#define charColor(input) (input > 15 ? GREEN : YELLOW)
+#define CHARCOLOR(input) (input > 15 ? GREEN : YELLOW)
 
 void click();
 

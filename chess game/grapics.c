@@ -61,6 +61,7 @@ void drawCharacter(int x, int y, char color, int(*input)[14])
 	//인덱스가 다르기 때문에
 	//RETX, RETY를 사용해 해석
 	setcolor(color);
+	//setcolor
 	for (int i = 0; i < 14; i++)
 	{
 		for (int j = 0; j < 14; j++)
