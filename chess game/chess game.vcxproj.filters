@@ -30,12 +30,18 @@
     <ClCompile Include="chess.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="socket.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="grapics.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="chess.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="socket.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

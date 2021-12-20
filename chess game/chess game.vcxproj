@@ -142,12 +142,14 @@
     <ClCompile Include="chess.c" />
     <ClCompile Include="grapics.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="socket.c" />
     <ClCompile Include="windowconsole.h" />
     <ClCompile Include="windowsource.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="chess.h" />
     <ClInclude Include="grapics.h" />
+    <ClInclude Include="socket.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="bisop.txt" />

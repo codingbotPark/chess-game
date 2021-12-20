@@ -2,6 +2,7 @@
 
 //#include "grapics.h"
 #include "chess.h"
+#include "socket.h"
 
 int main()
 {
@@ -9,8 +10,7 @@ int main()
 	system("color f0");//콘솔창의 배경색을 하얀색으로 설정
 
 	setting();
-	
-
+	sockSetting();
 	//drawVer(10,10,100);//세로
 	//drawHor(10, 10, 100);//가로
 

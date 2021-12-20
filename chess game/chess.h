@@ -61,3 +61,11 @@ int whereclicked_x;
 int whereclicked_y;
 
 void isCanGo(x, y);
+
+// 나의 색이 먼지 저장
+// 백일 때 = 0
+// 흑일 때 = 1
+bool myColor;
+
+// 나의 턴을 저장
+bool myTurn;

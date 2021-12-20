@@ -52,6 +52,7 @@ void drawBorder(int x, int y, char color)
 	printf("                            ");
 }
 
+
 void drawCharacter(int x, int y, char color, int(*input)[14]) 
 {
 	x = RETX(x);
